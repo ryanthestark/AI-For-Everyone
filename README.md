@@ -14,8 +14,17 @@ This repository serves as both:
 
 ## 🚀 Getting Started
 
-### For Learners
-- Explore our educational content (coming soon!)
+### For Families & Kids (Ages 7-12)
+New to AI and want to teach your children? Start here:
+- **[AI for Kids & Families](./docs/kids/)** - Complete home learning setup
+- [Computer Lab Setup Guide](./docs/kids/computer-lab-guide.md) - Hardware for any budget
+- [Safety Setup](./docs/kids/safety-setup.md) - Keep kids safe online
+- [Kids AI Curriculum v0.1](./docs/kids/kids-ai-curriculum-v0.1.md) - Age-appropriate lessons
+- [Kid Projects](./docs/kids/kid-projects.md) - Fun starter projects
+- [Parent Handbook](./docs/kids/parent-handbook.md) - Teaching guide (no tech background needed!)
+
+### For General Learners
+- Explore our educational content
 - See real examples of AI-assisted development
 - Learn from transparent AI usage patterns
 
@@ -45,6 +54,7 @@ Read our [Security Practices Guide](./SECURITY.md) to understand what we do and 
 
 ## 📖 Documentation
 
+- [AI for Kids & Families](./docs/kids/) - Complete guide for teaching kids ages 7-12 about AI
 - [Contributing Guide](./CONTRIBUTING.md) - How to contribute safely and effectively
 - [Security Practices](./SECURITY.md) - Working safely in a public repository
 - [AI Governance Guide](./docs/ai-governance.md) - How we use and attribute AI
