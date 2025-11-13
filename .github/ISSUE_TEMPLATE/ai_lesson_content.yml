@@ -1,0 +1,88 @@
+name: AI for Everyone - Lesson / Content
+description: Propose new educational content or lesson for AI for Everyone
+title: "[Lesson] "
+labels: ["content", "ai-for-everyone"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing to AI for Everyone! Use this template to propose new lessons or educational content.
+
+  - type: textarea
+    id: mission
+    attributes:
+      label: Learning Outcome
+      description: What should learners be able to do after completing this lesson?
+      placeholder: |
+        Example: After this lesson, learners will understand how to effectively prompt ChatGPT for code generation and will be able to evaluate the quality of AI-generated code.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: level
+    attributes:
+      label: Difficulty Level
+      description: What is the target difficulty level?
+      options:
+        - Beginner
+        - Intermediate
+        - Advanced
+    validations:
+      required: true
+
+  - type: textarea
+    id: outline
+    attributes:
+      label: Content Outline
+      description: Provide a high-level outline of the lesson content
+      placeholder: |
+        1. Introduction to AI prompting
+        2. Basic prompt patterns
+        3. Hands-on exercise
+        4. Common pitfalls
+        5. Best practices
+    validations:
+      required: true
+
+  - type: textarea
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      description: What should learners know before starting this lesson?
+      placeholder: |
+        - Basic programming concepts
+        - Access to ChatGPT or similar tool
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope & Out of Scope
+      description: What topics will be covered? What won't be covered?
+      placeholder: |
+        **In Scope:**
+        - Practical prompting techniques
+        - Code review with AI
+        
+        **Out of Scope:**
+        - Deep learning theory
+        - Model training
+
+  - type: textarea
+    id: resources
+    attributes:
+      label: Resources & References
+      description: Links to relevant materials, documentation, or examples
+      placeholder: |
+        - OpenAI Documentation: https://...
+        - Related tutorials: https://...
+
+  - type: checkboxes
+    id: ai_assistance
+    attributes:
+      label: AI Assistance (optional)
+      description: Did you use AI tools to help create this content proposal?
+      options:
+        - label: ChatGPT (planning / wording)
+        - label: GitHub Copilot (editor)
+        - label: Copilot Agent (automation)
+        - label: Other AI tool (please specify in Resources & References)

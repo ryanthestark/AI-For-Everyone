@@ -1,0 +1,79 @@
+name: Meta / Process / Governance
+description: Propose changes to project processes, governance, or meta-level improvements
+title: "[Meta] "
+labels: ["meta", "process"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for proposals about how we work together, project governance, or meta-level improvements.
+
+  - type: textarea
+    id: mission
+    attributes:
+      label: Mission / Outcome
+      description: What process or governance issue are you addressing? What is the desired outcome?
+      placeholder: |
+        Example: Streamline the PR review process to reduce wait times while maintaining quality standards.
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_state
+    attributes:
+      label: Current State
+      description: What is the current process or situation?
+      placeholder: Describe how things work now
+
+  - type: textarea
+    id: proposed_state
+    attributes:
+      label: Proposed Change
+      description: What specific changes are you proposing?
+      placeholder: Describe the proposed new process or approach
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why is this change needed? What benefits will it provide?
+      placeholder: |
+        This change will:
+        - Improve X
+        - Reduce Y
+        - Enable Z
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope & Impact
+      description: What areas will be affected? What should be included or excluded?
+      placeholder: |
+        **Affected Areas:**
+        - PR review workflow
+        - Contributor guidelines
+        
+        **Not Affected:**
+        - Issue triage process
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Links & Context
+      description: Provide any relevant links, references, or additional context
+      placeholder: |
+        - Related discussion: #123
+        - Example from other projects: https://...
+
+  - type: checkboxes
+    id: ai_assistance
+    attributes:
+      label: AI Assistance (optional)
+      description: Did you use AI tools to help create this proposal?
+      options:
+        - label: ChatGPT (planning / wording)
+        - label: GitHub Copilot (editor)
+        - label: Copilot Agent (automation)
+        - label: Other AI tool (please specify in Links & Context)

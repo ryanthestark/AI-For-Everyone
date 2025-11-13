@@ -1,0 +1,122 @@
+name: AI Assistance Label Automation
+
+on:
+  issues:
+    types: [opened, edited]
+  pull_request:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  auto-label:
+    runs-on: ubuntu-latest
+    name: Auto-apply AI assistance labels
+    
+    steps:
+      - name: Check for AI assistance mentions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const context_body = context.payload.issue?.body || context.payload.pull_request?.body || '';
+            const labels_to_add = [];
+            
+            // Detect AI tool mentions in the body
+            if (context_body.toLowerCase().includes('chatgpt') || 
+                context_body.includes('- [x] ChatGPT')) {
+              labels_to_add.push('ai:chatgpt');
+            }
+            
+            if (context_body.toLowerCase().includes('copilot') && 
+                (context_body.toLowerCase().includes('editor') || 
+                 context_body.includes('- [x] GitHub Copilot (editor)'))) {
+              labels_to_add.push('ai:copilot-editor');
+            }
+            
+            if (context_body.toLowerCase().includes('copilot agent') || 
+                context_body.includes('- [x] Copilot Agent')) {
+              labels_to_add.push('ai:copilot-agent');
+            }
+            
+            if (context_body.toLowerCase().includes('multi-model') || 
+                context_body.toLowerCase().includes('multiple ai')) {
+              labels_to_add.push('ai:multi-model-review');
+            }
+            
+            // General AI assistance check
+            if (context_body.toLowerCase().includes('ai assistance:') || 
+                context_body.toLowerCase().includes('_ai assistance:')) {
+              labels_to_add.push('meta:ai-assisted');
+            }
+            
+            // Apply labels if any were detected
+            if (labels_to_add.length > 0) {
+              const issue_number = context.payload.issue?.number || context.payload.pull_request?.number;
+              const owner = context.repo.owner;
+              const repo = context.repo.repo;
+              
+              console.log(`Adding labels: ${labels_to_add.join(', ')}`);
+              
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number,
+                labels: labels_to_add
+              });
+              
+              console.log('✅ AI assistance labels applied successfully');
+            } else {
+              console.log('ℹ️ No AI assistance mentions detected');
+            }
+
+  check-template-usage:
+    runs-on: ubuntu-latest
+    name: Check template usage
+    if: github.event.action == 'opened'
+    
+    steps:
+      - name: Check if template was used
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue?.body || context.payload.pull_request?.body || '';
+            const is_issue = !!context.payload.issue;
+            
+            // Check for common template markers
+            const has_template_markers = 
+              body.includes('## Mission') ||
+              body.includes('## Summary') ||
+              body.includes('## Learning Outcome') ||
+              body.includes('## Bug Description') ||
+              body.includes('### AI Assistance');
+            
+            // If body is very short and doesn't have template markers, add a friendly comment
+            if (!has_template_markers && body.length < 100) {
+              const item_type = is_issue ? 'issue' : 'pull request';
+              const template_link = is_issue 
+                ? 'https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/issues/new/choose'
+                : 'https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/blob/main/.github/PULL_REQUEST_TEMPLATE.md';
+              
+              const comment = `👋 Thanks for creating this ${item_type}!
+              
+              It looks like this might not have used our ${item_type} template. Using templates helps ensure we have all the information needed and makes collaboration easier.
+              
+              ${is_issue ? 'You can create a new issue with a template here: ' + template_link : 'You can view our PR template here: ' + template_link}
+              
+              This is just a friendly reminder - no action required if you've already provided all necessary details! 😊`;
+              
+              const issue_number = context.payload.issue?.number || context.payload.pull_request?.number;
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number,
+                body: comment
+              });
+              
+              console.log('⚠️ Template usage reminder comment added');
+            } else {
+              console.log('✅ Template appears to have been used or body is sufficiently detailed');
+            }

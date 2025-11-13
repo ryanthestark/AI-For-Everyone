@@ -1,0 +1,77 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill out the sections below to help us fix it.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: When I click X, Y happens instead of Z
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: I expected Z to occur
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Y occurred instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Information about your environment
+      placeholder: |
+        - OS: [e.g., macOS 13, Windows 11, Ubuntu 22.04]
+        - Browser: [e.g., Chrome 120, Firefox 121]
+        - Version: [e.g., 1.2.3]
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any other context, screenshots, or logs
+      placeholder: Add screenshots, error messages, or logs here
+
+  - type: checkboxes
+    id: ai_assistance
+    attributes:
+      label: AI Assistance (optional)
+      description: Did you use AI tools to help create this bug report?
+      options:
+        - label: ChatGPT (planning / wording)
+        - label: GitHub Copilot (editor)
+        - label: Copilot Agent (automation)
+        - label: Other AI tool (please specify in Additional Context)
