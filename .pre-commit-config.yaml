@@ -1,0 +1,55 @@
+# Pre-commit hooks for AI-For-Everyone
+# Install: pip install pre-commit && pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # Secret scanning with Gitleaks
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+        name: Detect secrets with Gitleaks
+        entry: gitleaks protect --verbose --redact --staged
+        language: golang
+        pass_filenames: false
+
+  # Basic content hygiene checks
+  - repo: local
+    hooks:
+      - id: check-sensitive-patterns
+        name: Check for PII and sensitive patterns
+        entry: bash -c 'for file in "$@"; do
+          if [ -f "$file" ]; then
+            if grep -nHE "(password|passwd|pwd)\s*=\s*[\"'\''][^\"'\'']+[\"'\'']" "$file" 2>/dev/null; then
+              echo "⚠️  Potential hardcoded password in $file";
+            fi;
+            if grep -nHE "aws_secret_access_key\s*=|AWS_SECRET_ACCESS_KEY\s*=" "$file" 2>/dev/null; then
+              echo "⚠️  Potential AWS secret in $file";
+            fi;
+            if grep -nHE "\b[0-9]{3}-[0-9]{2}-[0-9]{4}\b" "$file" 2>/dev/null; then
+              echo "⚠️  Potential SSN pattern in $file";
+            fi;
+          fi;
+        done' --
+        language: system
+        types: [text]
+        pass_filenames: true
+        verbose: true
+        # This hook only warns, doesn't fail
+        stages: [commit]
+
+  # Basic file hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+        name: Check for large files
+      - id: check-merge-conflict
+        name: Check for merge conflict markers
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+      - id: end-of-file-fixer
+        name: Ensure files end with newline
+      - id: mixed-line-ending
+        name: Check for mixed line endings
