@@ -1,0 +1,155 @@
+name: Security Sanity Checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  secret-scan:
+    name: Scan for Secrets
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better secret detection
+      
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+      
+      - name: Secret scan summary
+        if: failure()
+        run: |
+          echo "::error::🚨 HIGH-CONFIDENCE SECRETS DETECTED! 🚨"
+          echo ""
+          echo "Gitleaks has detected what appear to be secrets in this PR."
+          echo ""
+          echo "📚 What to do now:"
+          echo "1. Review the Gitleaks output above to see what was detected"
+          echo "2. Remove the secrets from your code"
+          echo "3. If you've committed a real secret:"
+          echo "   - Rotate/invalidate the secret immediately"
+          echo "   - See SECURITY.md for detailed steps"
+          echo "4. If this is a false positive, you can add it to .gitleaksignore"
+          echo ""
+          echo "🔗 More info: https://github.com/${{ github.repository }}/blob/main/SECURITY.md"
+
+  content-hygiene:
+    name: PII & Content Hygiene Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Get changed files
+        id: changed-files
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # For PRs, get files changed in the PR
+            git fetch origin ${{ github.base_ref }}
+            CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          else
+            # For workflow_dispatch, check recent commits
+            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          fi
+          
+          # Save to file for next step
+          echo "$CHANGED_FILES" > /tmp/changed_files.txt
+          echo "Files to check:"
+          cat /tmp/changed_files.txt
+      
+      - name: Check for PII and sensitive patterns
+        run: |
+          echo "🔍 Scanning for potential PII and sensitive content..."
+          echo ""
+          
+          FINDINGS=0
+          
+          # Read changed files
+          if [ ! -s /tmp/changed_files.txt ]; then
+            echo "ℹ️  No files changed, skipping content checks"
+            exit 0
+          fi
+          
+          while IFS= read -r file; do
+            # Skip non-existent files (deleted files)
+            [ ! -f "$file" ] && continue
+            
+            # Skip binary files, images, and common non-text files
+            if file "$file" | grep -qE "binary|image|executable|archive|font"; then
+              continue
+            fi
+            
+            # Check for common secret patterns
+            if grep -nHE '(password|passwd|pwd)\s*=\s*["\047][^"\047]+["\047]' "$file" 2>/dev/null; then
+              echo "⚠️  FOUND: Potential hardcoded password in $file"
+              FINDINGS=$((FINDINGS + 1))
+            fi
+            
+            if grep -nHE 'aws_secret_access_key\s*=|AWS_SECRET_ACCESS_KEY\s*=' "$file" 2>/dev/null; then
+              echo "⚠️  FOUND: Potential AWS secret key in $file"
+              FINDINGS=$((FINDINGS + 1))
+            fi
+            
+            if grep -nHE '-----BEGIN\s+(RSA\s+)?PRIVATE KEY-----' "$file" 2>/dev/null; then
+              echo "⚠️  FOUND: Potential private key in $file"
+              FINDINGS=$((FINDINGS + 1))
+            fi
+            
+            # Check for PII patterns
+            # US SSN pattern (XXX-XX-XXXX)
+            if grep -nHE '\b[0-9]{3}-[0-9]{2}-[0-9]{4}\b' "$file" 2>/dev/null; then
+              echo "⚠️  FOUND: Potential SSN pattern in $file"
+              FINDINGS=$((FINDINGS + 1))
+            fi
+            
+            # US Phone number patterns
+            if grep -nHE '\b[0-9]{3}-[0-9]{3}-[0-9]{4}\b|\([0-9]{3}\)\s*[0-9]{3}-[0-9]{4}' "$file" 2>/dev/null; then
+              echo "⚠️  FOUND: Potential phone number in $file"
+              FINDINGS=$((FINDINGS + 1))
+            fi
+            
+            # Email addresses in non-documentation files
+            if [[ ! "$file" =~ \.(md|txt|rst)$ ]] && grep -nHE '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b' "$file" 2>/dev/null; then
+              echo "⚠️  FOUND: Email address in code file $file (consider if this is intentional)"
+              FINDINGS=$((FINDINGS + 1))
+            fi
+            
+          done < /tmp/changed_files.txt
+          
+          echo ""
+          if [ $FINDINGS -gt 0 ]; then
+            echo "⚠️  Found $FINDINGS potential issue(s) - please review above"
+            echo ""
+            echo "📚 Important reminders:"
+            echo "- This repo is PUBLIC - anyone can see committed content"
+            echo "- Don't commit real secrets, passwords, or API keys"
+            echo "- Avoid committing personal information (real names of minors, addresses, phone numbers, SSNs)"
+            echo "- If you believe these are false positives, that's okay - just double-check"
+            echo ""
+            echo "🔗 See SECURITY.md for more guidance"
+            echo ""
+            echo "✅ This check is currently set to WARN only (non-blocking)"
+          else
+            echo "✅ No potential PII or sensitive content patterns detected"
+          fi
+          
+          # Exit 0 (success) to make this non-blocking for now
+          exit 0
+      
+      - name: Content check summary
+        if: always()
+        run: |
+          echo "ℹ️  Content hygiene check completed"
+          echo "This check warns about potential PII and sensitive patterns but does not block PRs"

@@ -34,8 +34,19 @@ We embrace AI tools and maintain transparency about their use:
 
 Learn more in our [AI Governance documentation](./docs/ai-governance.md).
 
+## 🔒 Safety & Security
+
+This repository demonstrates **best practices for working safely in public**:
+- **Automated security checks** prevent accidental secret commits
+- **PII protection** helps avoid oversharing personal information
+- **Educational approach** - learn safe development habits
+
+Read our [Security Practices Guide](./SECURITY.md) to understand what we do and why.
+
 ## 📖 Documentation
 
+- [Contributing Guide](./CONTRIBUTING.md) - How to contribute safely and effectively
+- [Security Practices](./SECURITY.md) - Working safely in a public repository
 - [AI Governance Guide](./docs/ai-governance.md) - How we use and attribute AI
 - [Documentation Hub](./docs/README.md) - All available docs
 
@@ -47,7 +58,7 @@ Contributions are welcome! Whether you're:
 - Suggesting features
 - Reporting bugs
 
-Please use our [issue templates](https://github.com/ryanthestark/AI-For-Everyone/issues/new/choose) and be transparent about any AI assistance.
+Please read our [Contributing Guide](./CONTRIBUTING.md) to get started. Use our [issue templates](https://github.com/ryanthestark/AI-For-Everyone/issues/new/choose) and be transparent about any AI assistance.
 
 ## 📜 License
 
