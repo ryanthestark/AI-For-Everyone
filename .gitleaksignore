@@ -1,0 +1,13 @@
+# .gitleaksignore
+#
+# This file contains patterns to ignore for Gitleaks secret scanning.
+# Use this for known false positives only.
+#
+# Format: Each line is a regex pattern or specific finding to ignore
+# Be specific - broad ignores reduce security!
+#
+# Example entries (currently empty - add as needed):
+# path/to/file/with/false/positive.py:generic-api-key:1234567890abcdef
+# docs/examples/fake-api-key-for-demo.md
+
+# Add your ignored findings below:
