@@ -4,6 +4,17 @@ Welcome to the AI-For-Everyone documentation!
 
 ## Available Documentation
 
+### [AI for Kids & Families](./kids/)
+A comprehensive guide for teaching children (ages 7-12) how to use AI safely and creatively at home. Perfect for parents, homeschool families, and after-school programs.
+
+**Key resources:**
+- [Computer Lab Setup Guide](./kids/computer-lab-guide.md) - Hardware recommendations for any budget
+- [Safety Setup](./kids/safety-setup.md) - Child safety and parental controls
+- [Kids AI Curriculum v0.1](./kids/kids-ai-curriculum-v0.1.md) - Complete 18-24 week curriculum
+- [Kid Projects](./kids/kid-projects.md) - 14 ready-to-start projects
+- [Parent Handbook](./kids/parent-handbook.md) - Teaching guide for non-technical parents
+- [GitHub Projects Template](./kids/github-project-template.md) - Family learning board setup
+
 ### [AI Governance](./ai-governance.md)
 Learn about how we use AI tools in this project, how to attribute AI assistance, and why transparency matters.
 
