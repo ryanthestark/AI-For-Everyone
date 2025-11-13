@@ -1,0 +1,62 @@
+[
+  {
+    "name": "ai:chatgpt",
+    "color": "7B68EE",
+    "description": "Issue/PR created or assisted with ChatGPT"
+  },
+  {
+    "name": "ai:copilot-editor",
+    "color": "7B68EE",
+    "description": "Code written with GitHub Copilot in editor"
+  },
+  {
+    "name": "ai:copilot-agent",
+    "color": "7B68EE",
+    "description": "Implementation done by Copilot Agent"
+  },
+  {
+    "name": "ai:multi-model-review",
+    "color": "7B68EE",
+    "description": "Reviewed or validated by multiple AI models"
+  },
+  {
+    "name": "meta:ai-assisted",
+    "color": "9370DB",
+    "description": "General AI assistance was used (when specific tool unknown)"
+  },
+  {
+    "name": "bug",
+    "color": "d73a4a",
+    "description": "Something isn't working"
+  },
+  {
+    "name": "enhancement",
+    "color": "a2eeef",
+    "description": "New feature or request"
+  },
+  {
+    "name": "content",
+    "color": "0e8a16",
+    "description": "Educational content or lessons"
+  },
+  {
+    "name": "ai-for-everyone",
+    "color": "0e8a16",
+    "description": "Related to AI for Everyone educational initiative"
+  },
+  {
+    "name": "meta",
+    "color": "d4c5f9",
+    "description": "Project processes, governance, or meta-level topics"
+  },
+  {
+    "name": "process",
+    "color": "d4c5f9",
+    "description": "Process improvements or workflow changes"
+  },
+  {
+    "name": "documentation",
+    "color": "0075ca",
+    "description": "Improvements or additions to documentation"
+  }
+]
