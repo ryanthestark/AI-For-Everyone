@@ -6,16 +6,51 @@ Welcome to **AI-For-Everyone** - an educational initiative designed to make AI a
 
 To democratize AI knowledge and foster transparent, responsible AI adoption through hands-on learning and real-world examples.
 
+## 🌟 Three Primary Initiatives
+
+This repository is built around three core initiatives designed to make AI accessible and useful for everyone:
+
+### 1. 🔬 Experimentation Lab
+Explore, test, and compare AI tools and capabilities. The [experiments/](./experiments/) directory provides a structured space for:
+- Comparing different AI tools and models
+- Testing capabilities and limitations
+- Documenting findings for the community
+- Learning through hands-on experimentation
+
+### 2. 📚 Education Curriculum
+Comprehensive AI education with ethical considerations. The [education/](./education/) directory offers:
+- Structured lesson plans and modules
+- Age-appropriate content for learners 7+
+- Ethical AI principles and practices
+- Resources for students, parents, and educators
+
+### 3. 🛠️ Practical Skills Development
+Learn to use AI for real-world tasks. The [skills/](./skills/) directory provides:
+- Step-by-step guides for common tasks
+- Quick, actionable tutorials (15-30 minutes each)
+- Free tools and techniques
+- Immediately applicable skills
+
 ## 📚 What You'll Find Here
 
 This repository is a comprehensive learning hub designed for **everyone** - from complete beginners to experienced learners. Whether you're a student, parent, educator, or just curious about AI, you'll find:
 
+### Core Learning Resources
+* **[Education](./education/)** - Structured curriculum with ethical AI principles and lesson plans
+* **[Experiments](./experiments/)** - AI tool comparisons, capability testing, and research findings
+* **[Skills](./skills/)** - Practical step-by-step guides for using AI in everyday tasks
 * **[Curriculum](./curriculum/)** - Structured learning paths from foundations to advanced topics
 * **[Lessons](./lessons/)** - Video tutorials and written guides
 * **[AI Labs](./ai-labs/)** - Hands-on experiments and guided practice exercises
+
+### Practical Resources
 * **[Templates](./templates/)** - Ready-to-use prompts, workflows, and planning tools
 * **[Tools](./tools/)** - Curated lists of free AI tools
 * **[Examples](./examples/)** - Real-world scenarios you can try yourself
+
+### Community
+* **[Community](./community/)** - Discussions, showcases, and contribution guidelines
+* **[Missions](./missions/)** - Structured learning challenges and projects (coming soon)
 
 Everything here is:
 * ✅ **Beginner-friendly** - No technical background required
@@ -91,7 +126,12 @@ This repository is organized for easy navigation:
 
 ```
 ai-for-everyone/
-├── curriculum/          # Structured learning paths
+├── education/          # Curriculum modules and lesson plans with ethical AI focus
+├── experiments/        # Experimentation Lab - AI tool testing and comparisons
+├── skills/             # Practical step-by-step guides for using AI
+├── community/          # Discussions, showcases, and contribution guidelines
+├── missions/           # Structured learning challenges (public missions)
+├── curriculum/         # Structured learning paths
 │   ├── foundations/
 │   ├── problem-solving/
 │   ├── project-management/
@@ -125,6 +165,44 @@ ai-for-everyone/
 ```
 
 Each folder contains README files explaining its purpose and contents.
+
+## 🗺️ Repository Guide
+
+### New to AI? Start Here
+
+**[education/](./education/)** - Begin your AI learning journey with structured lessons and curriculum designed for complete beginners. Includes ethical considerations and age-appropriate content.
+
+**[skills/](./skills/)** - Learn specific, practical skills like "AI-Powered Brainstorming" or "Use AI to Write Emails." Great for quick wins and building confidence.
+
+### Want to Explore AI Tools?
+
+**[experiments/](./experiments/)** - Dive into the Experimentation Lab to see how different AI tools compare, test capabilities, and learn what works best for different tasks.
+
+**[tools/](./tools/)** - Browse curated lists of free AI tools organized by category (mobile apps, browser tools, open-source models).
+
+### Ready to Learn More?
+
+**[curriculum/](./curriculum/)** - Follow structured learning paths from foundations to advanced topics like AI-augmented development.
+
+**[lessons/](./lessons/)** - Watch video tutorials or read written guides on specific topics.
+
+**[ai-labs/](./ai-labs/)** - Get hands-on practice with guided exercises.
+
+### Looking for Practical Help?
+
+**[examples/](./examples/)** - See real-world scenarios like family routines, study workflows, and personal productivity.
+
+**[templates/](./templates/)** - Use ready-made prompts, workflows, and planning tools.
+
+### Want to Contribute?
+
+**[community/](./community/)** - Join discussions, share your work, and learn how to contribute to the project.
+
+**[CONTRIBUTING.md](./CONTRIBUTING.md)** - Detailed guide on how to contribute safely and effectively.
+
+### Teaching Kids About AI?
+
+**[docs/kids/](./docs/kids/)** - Complete resources for teaching AI to children ages 7-12, including safety setup, curriculum, and parent handbook.
 
 ## 🔒 Safety & Security
 
