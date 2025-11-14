@@ -1,0 +1,114 @@
+name: Legal Case – Multi-LLM Strategy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-multi-llm:
+    runs-on: ubuntu-latest
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install minimal dependencies
+        working-directory: legal-case/analysis
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run full multi-LLM analysis
+        working-directory: legal-case/analysis
+        run: |
+          echo "Starting full multi-LLM analysis..."
+          python run_multi_llm_strategy.py
+
+      - name: Validate outputs
+        working-directory: legal-case/analysis
+        run: |
+          echo "Validating outputs..."
+          python validate_outputs.py
+
+      - name: Generate HUMAN_NEXT_STEPS.md
+        working-directory: legal-case/analysis
+        run: |
+          mkdir -p outputs
+          cat > outputs/HUMAN_NEXT_STEPS.md << 'EOF'
+          # Legal Case Multi-LLM Run – Human Next Steps
+
+          This Actions run generated the following key files in `legal-case/analysis/outputs/`:
+
+          - `final-master-strategy.md` — **Start here.** High-level legal strategy, claim strength, damages ranges, and recommended mediation vs. litigation approach.
+          - `consensus.md` / `consensus.json` — Where the different models **agree** on claims, evidence, and strategy.
+          - `dissent.json` — Where models **disagree**, remaining uncertainties, and minority opinions.
+          - `summary_stats.json` — Meta summary: which models ran, how many succeeded, count of consensus claims, etc.
+          - `models/*/*` — Detailed per-model analyses, critiques, and debate outputs (deep dive, optional).
+
+          ## Suggested review order
+
+          1. **Read `final-master-strategy.md`.**
+             - Focus on:
+               - Executive Summary
+               - Consensus Legal Claims
+               - Recommended Strategy (mediation vs. litigation)
+               - Damages Assessment (low / mid / high ranges)
+               - Risk Analysis and key weaknesses.
+
+          2. **Skim `consensus.md`.**
+             - Identify:
+               - Which claims are rated Strong / Moderate / Weak.
+               - Where multiple models converge on the same narrative.
+               - Core leverage points for mediation.
+
+          3. **Check `dissent.json`.**
+             - Look for:
+               - Areas where some models are more pessimistic or conservative.
+               - Disagreements on damages or claim viability.
+               - "Remaining uncertainties" that could affect whether to settle now vs. push further.
+
+          4. **Use this to prep for your attorney.**
+             - Share:
+               - The strongest claims and damages ranges.
+               - Highlighted risks and employer defenses.
+               - Open questions / uncertainties the models identified.
+             - Ask counsel:
+               - What do they agree/disagree with?
+               - What additional evidence or discovery would move the needle?
+               - How to convert these AI insights into an actual mediation and litigation strategy.
+
+          5. **For your own memory and follow-up work:**
+             - Use the report's:
+               - Witness / corroboration suggestions to identify people to contact.
+               - "Missing evidence" / gaps as prompts to search your email, docs, and notes.
+               - Timelines and causation chains to practice telling your story in a clear, chronological way.
+          EOF
+
+      - name: Display output summary
+        if: success()
+        working-directory: legal-case/analysis
+        run: |
+          echo "================================"
+          echo "Multi-LLM Analysis Complete!"
+          echo "================================"
+          echo ""
+          echo "Key outputs generated:"
+          echo "  📄 final-master-strategy.md - Primary strategy report"
+          echo "  📋 HUMAN_NEXT_STEPS.md - Quick start guide"
+          echo ""
+          echo "Download the 'legal-case-multi-llm-outputs' artifact"
+          echo "from the Actions UI to access all files."
+          echo ""
+
+      - name: Upload legal analysis outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: legal-case-multi-llm-outputs
+          path: legal-case/analysis/outputs/
+          if-no-files-found: error
