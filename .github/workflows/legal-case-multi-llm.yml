@@ -6,6 +6,8 @@ on:
 jobs:
   run-multi-llm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
