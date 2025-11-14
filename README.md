@@ -26,6 +26,29 @@ Everything here is:
 
 ## 🚀 Getting Started
 
+### 🌟 For Young AI Explorers (NEW!)
+
+**Kids ages 7-12: Start your AI adventure in a safe, fun playground!**
+
+We've created a special space just for young learners to explore AI safely:
+
+- **[Kids' AI Playground](./src/kids_ai_playground/)** - Your very own AI chat application that runs on your computer! 🎮
+  - ✅ 100% safe and age-appropriate
+  - ✅ Works offline after setup
+  - ✅ No external AI services or data sharing
+  - ✅ Built-in safety filters
+  - ✅ Fun mission-based learning
+
+- **[First AI Mission](./missions/kids/first_ai_story.md)** - Create a story with AI about a brave knight! 🏰
+  - Perfect for beginners
+  - Step-by-step guidance
+  - Parent-approved activities
+  - Journal prompts included
+
+**Parents**: Start with the [Kids' AI Playground README](./src/kids_ai_playground/README.md) for complete setup instructions. It takes about 15 minutes and requires no technical background!
+
+---
+
 ### For Families & Kids (Ages 7-12)
 New to AI and want to teach your children? Start here:
 - **[AI for Kids & Families](./docs/kids/)** - Complete home learning setup
