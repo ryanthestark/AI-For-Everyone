@@ -237,6 +237,23 @@ Want to make the playground your own? Here are some ideas:
 - Add more educational response categories
 - Create themed versions (science, history, etc.)
 
+**Advanced: Debug Mode (Developers Only)**
+
+For troubleshooting or development purposes, you can enable Flask's debug mode:
+
+```bash
+# Mac/Linux
+FLASK_DEBUG=1 python3 app.py
+
+# Windows (Command Prompt)
+set FLASK_DEBUG=1 && python app.py
+
+# Windows (PowerShell)
+$env:FLASK_DEBUG=1; python app.py
+```
+
+⚠️ **Security Warning**: Debug mode should ONLY be used for local development on your own computer. Never enable debug mode on a server or shared computer, as it can be a security risk.
+
 ## 📚 Educational Extensions
 
 ### Discussion Questions

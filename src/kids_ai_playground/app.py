@@ -5,6 +5,7 @@ A simple, local web-based chat interface for children to explore AI safely.
 
 from flask import Flask, render_template, request, jsonify
 import random
+import os
 from datetime import datetime
 
 app = Flask(__name__)
@@ -161,6 +162,12 @@ if __name__ == '__main__':
     print("🎓 Have fun learning about AI!")
     print("\nPress Ctrl+C to stop the server.\n")
     
-    # Run in debug mode for better error messages during development
-    # In production, set debug=False
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    # Security: Debug mode is disabled by default
+    # Only enable for local development by setting FLASK_DEBUG=1 environment variable
+    # Debug mode should NEVER be used in production as it can allow code execution
+    debug_mode = os.environ.get('FLASK_DEBUG', '0') == '1'
+    
+    if debug_mode:
+        print("⚠️  WARNING: Debug mode is enabled. This should only be used for local development.\n")
+    
+    app.run(debug=debug_mode, host='127.0.0.1', port=5000)
