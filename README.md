@@ -12,6 +12,7 @@ This repository is a comprehensive learning hub designed for **everyone** - from
 
 * **[Curriculum](./curriculum/)** - Structured learning paths from foundations to advanced topics
 * **[Lessons](./lessons/)** - Video tutorials and written guides
+* **[AI Labs](./ai-labs/)** - Hands-on experiments and guided practice exercises
 * **[Templates](./templates/)** - Ready-to-use prompts, workflows, and planning tools
 * **[Tools](./tools/)** - Curated lists of free AI tools
 * **[Examples](./examples/)** - Real-world scenarios you can try yourself
@@ -43,6 +44,7 @@ Start your AI journey here:
 
 ### For Students & Learners
 Level up your learning:
+- **[AI Labs](./ai-labs/)** - Hands-on practice with guided exercises (START HERE!)
 - **[Study Workflows](./examples/study-workflows/)** - AI-assisted homework and test prep
 - **[Problem-Solving Curriculum](./curriculum/problem-solving/)** - Learn to think critically
 - **[Prompt Templates](./templates/prompts/)** - Get better AI results
@@ -102,6 +104,9 @@ ai-for-everyone/
 │   │   ├── phone-only-ai/
 │   │   └── github-projects-for-beginners/
 │   └── written-guides/
+├── ai-labs/            # Hands-on practice labs
+│   ├── lab1_generate-study-plan.md
+│   └── lab-template.md
 ├── templates/          # Ready-to-use resources
 │   ├── prompts/
 │   ├── workflows/
